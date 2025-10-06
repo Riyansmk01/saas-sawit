@@ -49,7 +49,7 @@ export default function HomePage() {
       </nav>
 
       {/* Hero Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8">
+      <section className="py-20 px-4 sm:px-6 lg:px-8 soft-gradient-bg">
         <div className="max-w-7xl mx-auto">
           <div className="text-center">
             <div className="inline-flex items-center px-4 py-2 rounded-full bg-white/70 brand-glass text-sawit-700 text-sm font-medium mb-8">
@@ -79,7 +79,7 @@ export default function HomePage() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="/auth/register">
                 <MagnetButton 
-                  className="text-lg font-semibold py-3 px-8 rounded-lg shadow-lg hover:shadow-xl"
+                  className="text-lg font-semibold py-3 px-8 rounded-lg shadow-lg hover:shadow-xl shine-on-hover"
                 >
                   <span className="flex items-center">
                     Mulai Gratis Sekarang
@@ -87,7 +87,7 @@ export default function HomePage() {
                   </span>
                 </MagnetButton>
               </Link>
-              <Link href="#demo" className="border-2 border-sawit-600 bg-transparent text-sawit-600 hover:bg-sawit-600 hover:text-white font-medium py-3 px-8 rounded-lg text-lg transition-all duration-300 hover:scale-105 inline-flex items-center">
+              <Link href="#demo" className="border-2 border-sawit-600 bg-white/70 text-sawit-700 hover:bg-sawit-600 hover:text-white font-medium py-3 px-8 rounded-lg text-lg transition-all duration-300 hover:scale-105 inline-flex items-center shine-on-hover">
                 <span className="flex items-center">
                   <TrendingUp className="mr-2 h-5 w-5" />
                   Lihat Demo
@@ -113,7 +113,7 @@ export default function HomePage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <ElectricBorder intensity="medium" className="p-8 text-center">
+            <ElectricBorder intensity="medium" className="p-8 text-center tilt-on-hover">
               <div className="bg-gradient-to-br from-sawit-100 to-sawit-200 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
                 <BarChart3 className="h-8 w-8 text-sawit-600" />
               </div>
@@ -123,7 +123,7 @@ export default function HomePage() {
               </p>
             </ElectricBorder>
 
-            <div className="relative bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 p-8 text-center hover:shadow-2xl transition-all duration-300 hover:scale-105">
+            <div className="relative bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 p-8 text-center hover:shadow-2xl transition-all duration-300 hover:scale-105 tilt-on-hover">
               <div className="absolute inset-0 bg-gradient-to-br from-primary-500/10 to-blue-500/10 rounded-2xl opacity-0 hover:opacity-100 transition-opacity duration-300" />
               <div className="relative z-10">
                 <div className="bg-gradient-to-br from-primary-100 to-primary-200 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
@@ -136,7 +136,7 @@ export default function HomePage() {
               </div>
             </div>
 
-            <div className="relative bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 p-8 text-center hover:shadow-2xl transition-all duration-300 hover:scale-105">
+            <div className="relative bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 p-8 text-center hover:shadow-2xl transition-all duration-300 hover:scale-105 tilt-on-hover">
               <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-2xl opacity-0 hover:opacity-100 transition-opacity duration-300" />
               <div className="relative z-10">
                 <div className="bg-gradient-to-br from-blue-100 to-blue-200 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
@@ -149,7 +149,7 @@ export default function HomePage() {
               </div>
             </div>
 
-            <div className="relative bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 p-8 text-center hover:shadow-2xl transition-all duration-300 hover:scale-105">
+            <div className="relative bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 p-8 text-center hover:shadow-2xl transition-all duration-300 hover:scale-105 tilt-on-hover">
               <div className="absolute inset-0 bg-gradient-to-br from-green-500/10 to-emerald-500/10 rounded-2xl opacity-0 hover:opacity-100 transition-opacity duration-300" />
               <div className="relative z-10">
                 <div className="bg-gradient-to-br from-green-100 to-green-200 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
@@ -162,7 +162,7 @@ export default function HomePage() {
               </div>
             </div>
 
-            <div className="relative bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 p-8 text-center hover:shadow-2xl transition-all duration-300 hover:scale-105">
+            <div className="relative bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 p-8 text-center hover:shadow-2xl transition-all duration-300 hover:scale-105 tilt-on-hover">
               <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-pink-500/10 rounded-2xl opacity-0 hover:opacity-100 transition-opacity duration-300" />
               <div className="relative z-10">
                 <div className="bg-gradient-to-br from-purple-100 to-purple-200 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">

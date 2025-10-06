@@ -166,6 +166,40 @@
   animation: electric-border 1s linear infinite;
 }
 
+/* Modern UI extras */
+.tilt-on-hover {
+  transform-style: preserve-3d;
+  transition: transform 300ms ease, box-shadow 300ms ease;
+}
+.tilt-on-hover:hover {
+  transform: perspective(900px) rotateX(2deg) rotateY(-3deg) translateY(-2px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+}
+
+.shine-on-hover {
+  position: relative;
+  overflow: hidden;
+}
+.shine-on-hover::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  transform: rotate(25deg) translateX(-120%);
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+  transition: transform 700ms ease;
+}
+.shine-on-hover:hover::after {
+  transform: rotate(25deg) translateX(30%);
+}
+
+.soft-gradient-bg {
+  background: radial-gradient(800px 500px at 20% -10%, rgba(59,130,246,0.06), transparent),
+              radial-gradient(900px 600px at 100% 0, rgba(16,185,129,0.08), transparent);
+}
+
 /* Magnet button effect */
 .magnet-button {
   transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
