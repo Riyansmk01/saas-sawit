@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { Eye, EyeOff, ArrowLeft, Check, Loader2, AlertCircle, Mail, Lock, User, Building, Phone } from 'lucide-react'
+import { Eye, EyeOff, ArrowLeft, Check, CheckCircle, Loader2, AlertCircle, Mail, Lock, User, Building, Phone } from 'lucide-react'
 import Captcha from '@/components/Captcha'
 
 export default function RegisterPage() {
