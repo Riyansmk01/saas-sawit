@@ -1,0 +1,138 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String
+  company   String
+  phone     String?
+  password  String
+  role      String   @default("ADMIN") // ADMIN, MANDOR, WORKER
+  plan      String   @default("FREE")  // FREE, PRO, BUSINESS
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  workers       Worker[]
+  blocks        Block[]
+  harvests      Harvest[]
+  subscription  Subscription?
+  notifications Notification[]
+  payments      Payment[]
+
+  @@map("users")
+}
+
+model Worker {
+  id        String   @id @default(cuid())
+  name      String
+  phone     String?
+  address   String?
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  userId    String
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  harvests  Harvest[]
+
+  @@map("workers")
+}
+
+model Block {
+  id          String   @id @default(cuid())
+  name        String
+  area        Float    // in hectares
+  location    String?
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  userId    String
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  harvests  Harvest[]
+
+  @@map("blocks")
+}
+
+model Harvest {
+  id        String   @id @default(cuid())
+  date      DateTime
+  tbsCount  Int      // Tandan Buah Segar count
+  weight    Float    // in tons
+  quality   String   @default("A") // A, B, C
+  notes     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  userId    String
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  workerId  String
+  worker    Worker    @relation(fields: [workerId], references: [id], onDelete: Cascade)
+  blockId   String
+  block     Block     @relation(fields: [blockId], references: [id], onDelete: Cascade)
+
+  @@map("harvests")
+}
+
+model Subscription {
+  id        String   @id @default(cuid())
+  plan      String   // FREE, PRO, BUSINESS
+  startDate DateTime
+  endDate   DateTime
+  amount    Float
+  status    String   @default("ACTIVE") // ACTIVE, INACTIVE, CANCELLED, EXPIRED
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("subscriptions")
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  type      String   // HARVEST_REMINDER, REPORT_READY, PAYMENT_DUE, SYSTEM_UPDATE
+  title     String
+  message   String
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  // Relations
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("notifications")
+}
+
+model Payment {
+  id            String   @id @default(cuid())
+  plan          String   // FREE, PRO, BUSINESS
+  amount        Float
+  method        String
+  status        String   @default("PENDING") // PENDING, SUCCESS, FAILED, CANCELLED
+  transactionId String   @unique
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  // Relations
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("payments")
+}
