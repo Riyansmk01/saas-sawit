@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { ArrowRight, BarChart3, Users, FileText, Shield, Zap, CheckCircle, Sparkles, TrendingUp } from 'lucide-react'
 import CustomCursor from '@/components/animations/CustomCursor'
+import Logo from '@/components/Logo'
 import LogoLoop from '@/components/animations/LogoLoop'
 import MagnetButton from '@/components/animations/MagnetButton'
 import ElectricBorder from '@/components/animations/ElectricBorder'
@@ -12,7 +13,7 @@ import AnimatedThreads from '@/components/animations/AnimatedThreads'
 export default function HomePage() {
   return (
     <CustomCursor>
-      <div className="min-h-screen bg-gradient-to-br from-sawit-50 to-primary-50 relative">
+      <div className="min-h-screen brand-gradient relative">
         {/* Background Threads */}
         <AnimatedThreads 
           threadCount={15}
@@ -21,15 +22,11 @@ export default function HomePage() {
           className="opacity-10"
         />
       {/* Navigation */}
-      <nav className="bg-white/80 backdrop-blur-md shadow-sm border-b border-white/20">
+      <nav className="brand-glass shadow-sm border-b border-white/20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
-              <div className="flex-shrink-0">
-                <h1 className="text-2xl font-bold bg-gradient-to-r from-sawit-600 to-primary-600 bg-clip-text text-transparent">
-                  🌴 Sawit Harvest
-                </h1>
-              </div>
+              <Logo withText size={28} />
             </div>
             <div className="hidden md:block">
               <div className="ml-10 flex items-baseline space-x-4">
@@ -55,13 +52,13 @@ export default function HomePage() {
       <section className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="text-center">
-            <div className="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-sawit-100 to-primary-100 text-sawit-700 text-sm font-medium mb-8">
+            <div className="inline-flex items-center px-4 py-2 rounded-full bg-white/70 brand-glass text-sawit-700 text-sm font-medium mb-8">
               <Sparkles className="w-4 h-4 mr-2" />
               Platform SaaS Terdepan untuk Petani Sawit
             </div>
             
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6">
-              <span className="bg-gradient-to-r from-gray-900 via-sawit-600 to-primary-600 bg-clip-text text-transparent">
+              <span className="gradient-text">
                 Kelola Panen Sawit
               </span>
               <br />
@@ -447,8 +444,18 @@ export default function HomePage() {
       </section>
 
       {/* Logo Loop Section */}
-      <section className="py-12 bg-gradient-to-r from-sawit-600 to-primary-600">
-        <LogoLoop text="SAWIT HARVEST - PREMIUM QUALITY - INNOVATION - EFFICIENCY" className="text-white" speed={30} />
+      <section className="py-12 bg-gradient-to-r from-sawit-600 via-primary-600 to-blue-600">
+        <LogoLoop 
+          text="SAWIT HARVEST • PREMIUM QUALITY • INNOVATION • EFFICIENCY"
+          className="text-white"
+          speed={25}
+          copies={8}
+          showDivider={false}
+          gradientFrom="from-white"
+          gradientVia="via-sawit-100"
+          gradientTo="to-white"
+          fontSize="xl"
+        />
       </section>
 
       {/* Footer */}
