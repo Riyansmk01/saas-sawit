@@ -194,6 +194,54 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Testimonials Section */}
+      <section id="testimonials" className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Dipercaya Petani & Perusahaan Kebun</h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">Cerita sukses pengguna yang meningkatkan produktivitas panen dan efisiensi operasional dengan Sawit Harvest</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="bg-white rounded-2xl shadow-md border border-gray-200 p-6">
+              <div className="flex items-center gap-4 mb-4">
+                <div className="w-12 h-12 rounded-full bg-sawit-100 flex items-center justify-center font-bold text-sawit-700">AR</div>
+                <div>
+                  <div className="font-semibold text-gray-900">Andi Rahman</div>
+                  <div className="text-sm text-gray-500">Pemilik Kebun, Riau</div>
+                </div>
+              </div>
+              <p className="text-gray-700">“Pencatatan panen jadi rapi dan cepat. Laporan otomatis sangat membantu pengambilan keputusan harian.”</p>
+              <div className="mt-4 text-sm text-gray-500">Peningkatan efisiensi 27%</div>
+            </div>
+
+            <div className="bg-white rounded-2xl shadow-md border border-gray-200 p-6">
+              <div className="flex items-center gap-4 mb-4">
+                <div className="w-12 h-12 rounded-full bg-primary-100 flex items-center justify-center font-bold text-primary-700">SR</div>
+                <div>
+                  <div className="font-semibold text-gray-900">Sari Putri</div>
+                  <div className="text-sm text-gray-500">Mandor, Kalimantan</div>
+                </div>
+              </div>
+              <p className="text-gray-700">“Input data pekerja dan blok lahan sangat mudah. Notifikasi reminder panen itu lifesaver!”</p>
+              <div className="mt-4 text-sm text-gray-500">Akurasi data naik 35%</div>
+            </div>
+
+            <div className="bg-white rounded-2xl shadow-md border border-gray-200 p-6">
+              <div className="flex items-center gap-4 mb-4">
+                <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center font-bold text-blue-700">TM</div>
+                <div>
+                  <div className="font-semibold text-gray-900">Teguh Mahendra</div>
+                  <div className="text-sm text-gray-500">Ops Manager, Sumut</div>
+                </div>
+              </div>
+              <p className="text-gray-700">“Dashboard realtime dan export laporan PDF/Excel mempersingkat rapat mingguan kami.”</p>
+              <div className="mt-4 text-sm text-gray-500">Waktu laporan -60%</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Pricing Section */}
       <section id="pricing" className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -327,6 +375,57 @@ export default function HomePage() {
                 Pilih Bisnis
               </Link>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section id="faq" className="py-20 bg-white">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Pertanyaan yang Sering Diajukan</h2>
+            <p className="text-lg text-gray-600">Butuh bantuan? Berikut jawaban cepatnya.</p>
+          </div>
+
+          <div className="space-y-4">
+            <details className="group bg-gray-50 rounded-xl border border-gray-200 p-5">
+              <summary className="flex cursor-pointer list-none items-center justify-between font-medium text-gray-900">
+                Apakah paket Gratis cukup untuk kebun kecil?
+                <span className="transition group-open:rotate-180">⌄</span>
+              </summary>
+              <p className="mt-3 text-gray-600">Ya. Paket Gratis mencakup 1 kebun, 3 pekerja, dan 100 data panen/bulan. Cocok untuk mulai.</p>
+            </details>
+
+            <details className="group bg-gray-50 rounded-xl border border-gray-200 p-5">
+              <summary className="flex cursor-pointer list-none items-center justify-between font-medium text-gray-900">
+                Bisakah data diekspor ke Excel atau PDF?
+                <span className="transition group-open:rotate-180">⌄</span>
+              </summary>
+              <p className="mt-3 text-gray-600">Bisa. Paket Pro dan Bisnis mendukung export laporan Excel dan PDF langsung dari aplikasi.</p>
+            </details>
+
+            <details className="group bg-gray-50 rounded-xl border border-gray-200 p-5">
+              <summary className="flex cursor-pointer list-none items-center justify-between font-medium text-gray-900">
+                Bagaimana keamanan data saya?
+                <span className="transition group-open:rotate-180">⌄</span>
+              </summary>
+              <p className="mt-3 text-gray-600">Data disimpan aman, akses dilindungi autentikasi berbasis token, dan ada kontrol role Admin/Mandor/Pekerja.</p>
+            </details>
+
+            <details className="group bg-gray-50 rounded-xl border border-gray-200 p-5">
+              <summary className="flex cursor-pointer list-none items-center justify-between font-medium text-gray-900">
+                Apakah bisa upgrade/downgrade paket kapan saja?
+                <span className="transition group-open:rotate-180">⌄</span>
+              </summary>
+              <p className="mt-3 text-gray-600">Tentu. Anda bisa upgrade/downgrade paket kapan saja sesuai kebutuhan operasional.</p>
+            </details>
+          </div>
+
+          <div className="text-center mt-10">
+            <Link href="/auth/register" className="bg-sawit-600 hover:bg-sawit-700 text-white font-medium py-3 px-8 rounded-lg inline-flex items-center transition-all duration-300 hover:scale-105">
+              Mulai Gratis Sekarang
+              <ArrowRight className="ml-2 h-5 w-5" />
+            </Link>
           </div>
         </div>
       </section>

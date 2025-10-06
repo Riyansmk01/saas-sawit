@@ -55,6 +55,23 @@ export default function AuthGuard({ children }: AuthGuardProps) {
     checkAuth();
   }, [router]);
 
+  // Optional: role-based guard for admin routes
+  useEffect(() => {
+    if (!isAuthenticated) return;
+    const path = window.location.pathname;
+    if (path.startsWith('/admin')) {
+      try {
+        const user = localStorage.getItem('user');
+        const userData = user ? JSON.parse(user) : null;
+        if (!userData || (userData.role || '').toUpperCase() !== 'ADMIN') {
+          router.replace('/dashboard');
+        }
+      } catch {
+        router.replace('/dashboard');
+      }
+    }
+  }, [isAuthenticated, router]);
+
   if (isLoading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">

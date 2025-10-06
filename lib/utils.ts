@@ -34,6 +34,30 @@ export function calculateProductivity(tbs: number, tonnage: number) {
   return Number((tbs / tonnage).toFixed(2))
 }
 
+// Centralized authenticated fetch helper
+export async function apiFetch<T = any>(input: RequestInfo | URL, init: RequestInit = {}): Promise<T> {
+  const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null
+  const headers = new Headers(init.headers || {})
+  headers.set('Content-Type', 'application/json')
+  if (token) headers.set('Authorization', `Bearer ${token}`)
+
+  const res = await fetch(input, { ...init, headers })
+  if (!res.ok) {
+    let message = 'Permintaan gagal'
+    try {
+      const data = await res.json()
+      message = data.error || data.message || message
+    } catch {}
+    throw new Error(message)
+  }
+  // Try parse JSON; allow empty
+  try {
+    return (await res.json()) as T
+  } catch {
+    return undefined as unknown as T
+  }
+}
+
 export function getQualityColor(quality: 'A' | 'B' | 'C') {
   switch (quality) {
     case 'A':

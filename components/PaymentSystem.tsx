@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { CreditCard, Check, X, AlertCircle, Calendar, DollarSign, Crown, Zap, Building } from 'lucide-react';
+import { CreditCard, Check, X, AlertCircle, Calendar, DollarSign, Crown, Zap, Building, QrCode, Landmark } from 'lucide-react';
 
 interface Plan {
   id: string;
@@ -16,7 +16,7 @@ interface Plan {
 interface PaymentMethod {
   id: string;
   name: string;
-  type: 'credit_card' | 'bank_transfer' | 'ewallet';
+  type: 'credit_card' | 'bank_transfer' | 'ewallet' | 'qris';
   icon: React.ReactNode;
 }
 
@@ -83,15 +83,34 @@ export default function PaymentSystem() {
       id: 'bank_transfer',
       name: 'Transfer Bank',
       type: 'bank_transfer',
-      icon: <DollarSign className="w-6 h-6" />
+      icon: <Landmark className="w-6 h-6" />
     },
     {
       id: 'ewallet',
       name: 'E-Wallet',
       type: 'ewallet',
       icon: <CreditCard className="w-6 h-6" />
+    },
+    {
+      id: 'qris',
+      name: 'QRIS (QR Code Indonesia Standard)',
+      type: 'qris',
+      icon: <QrCode className="w-6 h-6" />
     }
   ];
+
+  const bankOptions = [
+    { code: 'BCA', name: 'BCA' },
+    { code: 'BRI', name: 'BRI' },
+    { code: 'BNI', name: 'BNI' },
+    { code: 'MANDIRI', name: 'Mandiri' },
+    { code: 'PERMATA', name: 'Permata' },
+    { code: 'CIMB', name: 'CIMB Niaga' }
+  ] as const
+
+  const [selectedBank, setSelectedBank] = useState<typeof bankOptions[number]['code']>('BCA')
+  const [qrisPayload, setQrisPayload] = useState<string | null>(null)
+  const [vaInfo, setVaInfo] = useState<{ bank: string; vaNumber: string } | null>(null)
 
   const handlePlanSelect = (planId: string) => {
     setSelectedPlan(planId);
@@ -116,16 +135,28 @@ export default function PaymentSystem() {
         body: JSON.stringify({
           plan: selectedPlan,
           method: selectedPaymentMethod,
-          amount: plans.find(p => p.id === selectedPlan)?.price || 0
+          amount: plans.find(p => p.id === selectedPlan)?.price || 0,
+          bankCode: selectedPaymentMethod === 'bank_transfer' ? selectedBank : undefined
         }),
       });
 
       if (response.ok) {
+        const data = await response.json()
+        const instr = data?.payment?.instructions
+        if (instr?.type === 'QRIS' && instr.qrString) {
+          setQrisPayload(instr.qrString)
+        }
+        if (instr?.type === 'VIRTUAL_ACCOUNT') {
+          setVaInfo({ bank: instr.bank, vaNumber: instr.vaNumber })
+        }
         setPaymentStatus('success');
         // Reset selections after successful payment
         setTimeout(() => {
           setSelectedPlan('');
           setSelectedPaymentMethod('');
+          setSelectedBank('BCA')
+          setQrisPayload(null)
+          setVaInfo(null)
           setShowPaymentModal(false);
           setPaymentStatus('pending');
         }, 2000);
@@ -240,6 +271,42 @@ export default function PaymentSystem() {
                     ))}
                   </div>
                 </div>
+
+                {selectedPaymentMethod === 'bank_transfer' && (
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Pilih Bank</label>
+                    <select
+                      className="input-field"
+                      value={selectedBank}
+                      onChange={(e) => setSelectedBank(e.target.value as any)}
+                    >
+                      {bankOptions.map((b) => (
+                        <option key={b.code} value={b.code}>{b.name}</option>
+                      ))}
+                    </select>
+                    {vaInfo && (
+                      <div className="mt-3 p-3 rounded-lg border bg-gray-50 text-sm">
+                        <div className="font-medium text-gray-900">{vaInfo.bank} Virtual Account</div>
+                        <div className="font-mono text-lg mt-1">{vaInfo.vaNumber}</div>
+                        <div className="text-gray-600 mt-1">Atas Nama: SAWIT HARVEST</div>
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {selectedPaymentMethod === 'qris' && qrisPayload && (
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">QRIS</label>
+                    <div className="p-4 rounded-lg border bg-white">
+                      <img
+                        alt="QRIS"
+                        className="mx-auto"
+                        src={`https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=${encodeURIComponent(qrisPayload)}`}
+                      />
+                      <p className="mt-2 text-center text-sm text-gray-600">Scan QR ini dengan aplikasi pembayaran Anda</p>
+                    </div>
+                  </div>
+                )}
 
                 <div className="flex gap-3 pt-4">
                   <button

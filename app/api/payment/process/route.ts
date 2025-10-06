@@ -4,8 +4,9 @@ import { prisma } from '@/lib/prisma';
 
 const paymentSchema = z.object({
   plan: z.enum(['free', 'pro', 'business']),
-  method: z.string(),
-  amount: z.number().min(0)
+  method: z.enum(['bank_transfer', 'qris', 'credit_card', 'ewallet']).default('bank_transfer'),
+  amount: z.number().min(0),
+  bankCode: z.enum(['BCA', 'BRI', 'BNI', 'MANDIRI', 'PERMATA', 'CIMB']).optional()
 });
 
 export async function POST(request: NextRequest) {
@@ -40,9 +41,39 @@ export async function POST(request: NextRequest) {
       }
     });
 
-    // In real implementation, integrate with payment gateway (Midtrans, Xendit, etc.)
-    // For now, simulate successful payment
-    await new Promise(resolve => setTimeout(resolve, 2000));
+    // Simulate payment instructions for bank transfer and QRIS
+    let responsePayload: any = {
+      id: payment.id,
+      transactionId: payment.transactionId,
+      amount: payment.amount,
+      plan: payment.plan,
+      method: validatedData.method
+    }
+
+    if (validatedData.method === 'bank_transfer') {
+      const bank = validatedData.bankCode || 'BCA'
+      const prefixes: Record<string, string> = {
+        BCA: '3901', BRI: '2627', BNI: '9880', MANDIRI: '8950', PERMATA: '8758', CIMB: '8059'
+      }
+      const vaNumber = `${prefixes[bank]}${Math.floor(100000000 + Math.random()*900000000)}`
+      responsePayload.instructions = {
+        type: 'VIRTUAL_ACCOUNT',
+        bank,
+        vaNumber,
+        accountName: 'SAWIT HARVEST'
+      }
+    }
+
+    if (validatedData.method === 'qris') {
+      const qrString = `QRIS|${payment.transactionId}|AMT:${validatedData.amount}|TS:${Date.now()}`
+      responsePayload.instructions = {
+        type: 'QRIS',
+        qrString
+      }
+    }
+
+    // In real implementation, hand off to gateway and wait for callback/redirect
+    await new Promise(resolve => setTimeout(resolve, 1200));
 
     // Update payment status to success
     await prisma.payment.update({
@@ -82,10 +113,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({
       message: 'Pembayaran berhasil diproses',
       payment: {
-        id: payment.id,
-        transactionId: payment.transactionId,
-        amount: payment.amount,
-        plan: payment.plan,
+        ...responsePayload,
         status: 'SUCCESS'
       }
     });
