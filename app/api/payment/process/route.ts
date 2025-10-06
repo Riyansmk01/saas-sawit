@@ -30,14 +30,35 @@ export async function POST(request: NextRequest) {
     }
 
     // Create payment record
+    const txnId = `TXN_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`
+    let bankCode: string | null = null
+    let vaNumber: string | null = null
+    let qrString: string | null = null
+
+    if (validatedData.method === 'bank_transfer') {
+      const bank = validatedData.bankCode || 'BCA'
+      const prefixes: Record<string, string> = {
+        BCA: '3901', BRI: '2627', BNI: '9880', MANDIRI: '8950', PERMATA: '8758', CIMB: '8059'
+      }
+      bankCode = bank
+      vaNumber = `${prefixes[bank]}${Math.floor(100000000 + Math.random()*900000000)}`
+    }
+    if (validatedData.method === 'qris') {
+      qrString = `QRIS|${txnId}|AMT:${validatedData.amount}|TS:${Date.now()}`
+    }
+
     const payment = await prisma.payment.create({
       data: {
         userId: userId,
         plan: validatedData.plan.toUpperCase() as 'FREE' | 'PRO' | 'BUSINESS',
         amount: validatedData.amount,
         method: validatedData.method,
+        bankCode: bankCode || undefined,
+        vaNumber: vaNumber || undefined,
+        qrString: qrString || undefined,
         status: 'PENDING',
-        transactionId: `TXN_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`
+        transactionId: txnId,
+        expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000) // 24h
       }
     });
 
@@ -78,7 +99,7 @@ export async function POST(request: NextRequest) {
     // Update payment status to success
     await prisma.payment.update({
       where: { id: payment.id },
-      data: { status: 'SUCCESS' }
+      data: { status: 'SUCCESS', paidAt: new Date() }
     });
 
     // Create or update subscription

@@ -124,9 +124,14 @@ model Payment {
   id            String   @id @default(cuid())
   plan          String   // FREE, PRO, BUSINESS
   amount        Float
-  method        String
+  method        String   // bank_transfer, qris, credit_card, ewallet
+  bankCode      String?  // BCA, BRI, BNI, MANDIRI, PERMATA, CIMB
+  vaNumber      String?  @unique
+  qrString      String?
   status        String   @default("PENDING") // PENDING, SUCCESS, FAILED, CANCELLED
   transactionId String   @unique
+  paidAt        DateTime?
+  expiresAt     DateTime?
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 
@@ -135,4 +140,5 @@ model Payment {
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("payments")
+  @@index([userId, createdAt])
 }
