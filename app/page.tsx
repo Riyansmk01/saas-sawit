@@ -9,6 +9,7 @@ import MagnetButton from '@/components/animations/MagnetButton'
 import ElectricBorder from '@/components/animations/ElectricBorder'
 import RotatingText from '@/components/animations/RotatingText'
 import AnimatedThreads from '@/components/animations/AnimatedThreads'
+import MotionSection from '@/components/ui/MotionSection'
 
 export default function HomePage() {
   return (
@@ -102,40 +103,47 @@ export default function HomePage() {
       <section id="features" className="py-20 bg-white/50 backdrop-blur-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
-              <span className="bg-gradient-to-r from-gray-900 to-sawit-600 bg-clip-text text-transparent">
-                Fitur Lengkap untuk Manajemen Panen Sawit
-              </span>
-            </h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Semua yang Anda butuhkan untuk mengoptimalkan produktivitas kebun sawit
-            </p>
+            <MotionSection>
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
+                <span className="bg-gradient-to-r from-gray-900 to-sawit-600 bg-clip-text text-transparent">
+                  Fitur Lengkap untuk Manajemen Panen Sawit
+                </span>
+              </h2>
+              <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+                Semua yang Anda butuhkan untuk mengoptimalkan produktivitas kebun sawit
+              </p>
+            </MotionSection>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <ElectricBorder intensity="medium" className="p-8 text-center tilt-on-hover">
-              <div className="bg-gradient-to-br from-sawit-100 to-sawit-200 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
-                <BarChart3 className="h-8 w-8 text-sawit-600" />
-              </div>
-              <h3 className="text-xl font-semibold mb-3 text-gray-900">Dashboard Real-time</h3>
-              <p className="text-gray-600">
-                Pantau statistik panen harian, mingguan, dan bulanan dengan grafik interaktif
-              </p>
-            </ElectricBorder>
-
-            <div className="relative bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 p-8 text-center hover:shadow-2xl transition-all duration-300 hover:scale-105 tilt-on-hover">
-              <div className="absolute inset-0 bg-gradient-to-br from-primary-500/10 to-blue-500/10 rounded-2xl opacity-0 hover:opacity-100 transition-opacity duration-300" />
-              <div className="relative z-10">
-                <div className="bg-gradient-to-br from-primary-100 to-primary-200 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
-                  <FileText className="h-8 w-8 text-primary-600" />
+            <MotionSection delay={0.05}>
+              <ElectricBorder intensity="medium" className="p-8 text-center tilt-on-hover">
+                <div className="bg-gradient-to-br from-sawit-100 to-sawit-200 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+                  <BarChart3 className="h-8 w-8 text-sawit-600" />
                 </div>
-                <h3 className="text-xl font-semibold mb-3 text-gray-900">Input Data Panen</h3>
+                <h3 className="text-xl font-semibold mb-3 text-gray-900">Dashboard Real-time</h3>
                 <p className="text-gray-600">
-                  Catat hasil panen TBS dengan mudah: tanggal, pekerja, blok lahan, tonase, dan kualitas
+                  Pantau statistik panen harian, mingguan, dan bulanan dengan grafik interaktif
                 </p>
-              </div>
-            </div>
+              </ElectricBorder>
+            </MotionSection>
 
+            <MotionSection delay={0.1}>
+              <div className="relative bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 p-8 text-center hover:shadow-2xl transition-all duration-300 hover:scale-105 tilt-on-hover">
+                <div className="absolute inset-0 bg-gradient-to-br from-primary-500/10 to-blue-500/10 rounded-2xl opacity-0 hover:opacity-100 transition-opacity duration-300" />
+                <div className="relative z-10">
+                  <div className="bg-gradient-to-br from-primary-100 to-primary-200 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+                    <FileText className="h-8 w-8 text-primary-600" />
+                  </div>
+                  <h3 className="text-xl font-semibold mb-3 text-gray-900">Input Data Panen</h3>
+                  <p className="text-gray-600">
+                    Catat hasil panen TBS dengan mudah: tanggal, pekerja, blok lahan, tonase, dan kualitas
+                  </p>
+                </div>
+              </div>
+            </MotionSection>
+
+            <MotionSection delay={0.15}>
             <div className="relative bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 p-8 text-center hover:shadow-2xl transition-all duration-300 hover:scale-105 tilt-on-hover">
               <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-2xl opacity-0 hover:opacity-100 transition-opacity duration-300" />
               <div className="relative z-10">
@@ -148,6 +156,7 @@ export default function HomePage() {
                 </p>
               </div>
             </div>
+            </MotionSection>
 
             <div className="relative bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 p-8 text-center hover:shadow-2xl transition-all duration-300 hover:scale-105 tilt-on-hover">
               <div className="absolute inset-0 bg-gradient-to-br from-green-500/10 to-emerald-500/10 rounded-2xl opacity-0 hover:opacity-100 transition-opacity duration-300" />
@@ -243,12 +252,14 @@ export default function HomePage() {
       <section id="pricing" className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Pilih Paket yang Sesuai Kebutuhan
-            </h2>
-            <p className="text-xl text-gray-600">
-              Mulai gratis, upgrade kapan saja sesuai pertumbuhan bisnis Anda
-            </p>
+            <MotionSection>
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                Pilih Paket yang Sesuai Kebutuhan
+              </h2>
+              <p className="text-xl text-gray-600">
+                Mulai gratis, upgrade kapan saja sesuai pertumbuhan bisnis Anda
+              </p>
+            </MotionSection>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">

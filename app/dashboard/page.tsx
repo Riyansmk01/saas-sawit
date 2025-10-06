@@ -14,6 +14,7 @@ import {
   LineChart, Line, PieChart, Pie, Cell, AreaChart, Area 
 } from 'recharts';
 import Link from 'next/link';
+import StatsCounter from '@/components/StatsCounter';
 import UserManagement from '@/components/UserManagement';
 import HarvestInput from '@/components/HarvestInput';
 import Reports from '@/components/Reports';
@@ -125,7 +126,7 @@ export default function Dashboard() {
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-sm font-medium text-gray-600">Total Panen</p>
-                    <p className="text-2xl font-bold text-gray-900">{stats.totalHarvest}</p>
+                    <p className="text-2xl font-bold text-gray-900"><StatsCounter value={stats.totalHarvest} /></p>
                   </div>
                   <div className="p-3 bg-blue-100 rounded-full">
                     <BarChart3 className="w-6 h-6 text-blue-600" />
@@ -137,7 +138,7 @@ export default function Dashboard() {
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-sm font-medium text-gray-600">Pekerja</p>
-                    <p className="text-2xl font-bold text-gray-900">{stats.totalWorkers}</p>
+                    <p className="text-2xl font-bold text-gray-900"><StatsCounter value={stats.totalWorkers} /></p>
                   </div>
                   <div className="p-3 bg-green-100 rounded-full">
                     <Users className="w-6 h-6 text-green-600" />
@@ -149,7 +150,7 @@ export default function Dashboard() {
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-sm font-medium text-gray-600">Blok Lahan</p>
-                    <p className="text-2xl font-bold text-gray-900">{stats.totalBlocks}</p>
+                    <p className="text-2xl font-bold text-gray-900"><StatsCounter value={stats.totalBlocks} /></p>
                   </div>
                   <div className="p-3 bg-yellow-100 rounded-full">
                     <MapPin className="w-6 h-6 text-yellow-600" />
@@ -161,7 +162,7 @@ export default function Dashboard() {
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-sm font-medium text-gray-600">Panen Hari Ini</p>
-                    <p className="text-2xl font-bold text-gray-900">{stats.todayHarvest}</p>
+                    <p className="text-2xl font-bold text-gray-900"><StatsCounter value={stats.todayHarvest} /></p>
                   </div>
                   <div className="p-3 bg-purple-100 rounded-full">
                     <Calendar className="w-6 h-6 text-purple-600" />
