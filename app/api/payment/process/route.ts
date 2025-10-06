@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { prisma } from '@/lib/prisma';
+import jwt from 'jsonwebtoken';
 
 const paymentSchema = z.object({
   plan: z.enum(['free', 'pro', 'business']),
@@ -14,8 +15,19 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const validatedData = paymentSchema.parse(body);
 
-    // Get user from token (in real implementation, extract from JWT)
-    const userId = '1'; // This should come from JWT token
+    // Get user from token (extract from JWT)
+    const authHeader = request.headers.get('authorization') || ''
+    const token = authHeader.startsWith('Bearer ') ? authHeader.replace('Bearer ', '') : null
+    if (!token) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    }
+    let userId: string
+    try {
+      const decoded = jwt.verify(token, process.env.JWT_SECRET || 'fallback-secret') as any
+      userId = decoded.userId
+    } catch {
+      return NextResponse.json({ error: 'Token tidak valid' }, { status: 401 })
+    }
 
     // Check if user exists
     const user = await prisma.user.findUnique({
